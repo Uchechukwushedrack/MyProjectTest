@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOLA | Dashboard</title>
+    <link rel="stylesheet" href="src/input.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 flex h-screen overflow-hidden">
+    <!-- Modern Dark Sidebar -->
+    <aside
+      class="w-72 bg-slate-900 text-slate-300 flex-col hidden lg:flex shadow-xl z-20"
+    >
+      <div class="h-20 flex items-center px-8 border-b border-slate-800">
+        <span class="text-2xl font-bold text-white tracking-tight"
+          >LOLA<span class="text-emerald-500">.</span></span
+        >
+      </div>
+
+      <nav class="flex-1 px-4 py-6 space-y-2">
+        <p
+          class="px-4 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2"
+        >
+          Overview
+        </p>
+        <a
+          href="dashboard.html"
+          class="flex items-center gap-3 px-4 py-3 bg-emerald-600/10 text-emerald-400 rounded-xl border border-emerald-600/20"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+            ></path>
+          </svg>
+          <span class="font-medium">Dashboard</span>
+        </a>
+
+        <p
+          class="px-4 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 mt-6"
+        >
+          Operations
+        </p>
+        <a
+          href="campaign.html"
+          class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-colors"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+            ></path>
+          </svg>
+          <span>Campaigns</span>
+        </a>
+        <a
+          href="inbox.html"
+          class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-colors"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+            ></path>
+          </svg>
+          <span>Unified Inbox</span>
+          <span
+            class="ml-auto bg-emerald-500 text-white text-xs font-bold px-2 py-0.5 rounded-full"
+            >3</span
+          >
+        </a>
+
+        <a
+          href="index.html"
+          class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-colors"
+        >
+          Logout</a
+        >
+      </nav>
+
+      <div class="p-4 border-t border-slate-800">
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-400 to-blue-500"
+          ></div>
+          <div>
+            <p class="text-sm font-bold text-white">Ops Manager</p>
+            <p class="text-xs text-slate-500">Admin Access</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto">
+      <!-- Top Header -->
+      <header
+        class="bg-white/80 backdrop-blur-md sticky top-0 z-10 border-b border-slate-200 px-8 py-4 flex justify-between items-center"
+      >
+        <h2 class="text-xl font-bold text-slate-800">Campaign Overview</h2>
+        <button
+          id="downloadBtn"
+          class="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition shadow-lg shadow-slate-500/20"
+        >
+          Download Report
+        </button>
+      </header>
+
+      <div class="p-8 max-w-7xl mx-auto space-y-8">
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <!-- Card 1 -->
+          <div
+            class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow relative overflow-hidden group"
+          >
+            <div
+              class="absolute right-0 top-0 w-24 h-24 bg-emerald-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-emerald-100"
+            ></div>
+            <p class="text-slate-500 font-medium text-sm relative z-10">
+              Reach Rate
+            </p>
+            <div class="flex items-baseline gap-2 mt-2 relative z-10">
+              <h3 class="text-3xl font-bold text-slate-900">75%</h3>
+              <span
+                class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full"
+                >↑ 12%</span
+              >
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div
+            class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow relative overflow-hidden group"
+          >
+            <div
+              class="absolute right-0 top-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-blue-100"
+            ></div>
+            <p class="text-slate-500 font-medium text-sm relative z-10">
+              Response Rate
+            </p>
+            <div class="flex items-baseline gap-2 mt-2 relative z-10">
+              <h3 class="text-3xl font-bold text-slate-900">30%</h3>
+              <span class="text-xs font-bold text-slate-400">Target: 25%</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div
+            class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow relative overflow-hidden group"
+          >
+            <div
+              class="absolute right-0 top-0 w-24 h-24 bg-orange-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-orange-100"
+            ></div>
+            <p class="text-slate-500 font-medium text-sm relative z-10">
+              Recovered Devices
+            </p>
+            <div class="flex items-baseline gap-2 mt-2 relative z-10">
+              <h3 class="text-3xl font-bold text-emerald-600">450</h3>
+              <span
+                class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full"
+                >18% Conv.</span
+              >
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div
+            class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow relative overflow-hidden group"
+          >
+            <div
+              class="absolute right-0 top-0 w-24 h-24 bg-purple-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-purple-100"
+            ></div>
+            <p class="text-slate-500 font-medium text-sm relative z-10">
+              Incentives Paid
+            </p>
+            <div class="flex items-baseline gap-2 mt-2 relative z-10">
+              <h3 class="text-3xl font-bold text-slate-900">₦2.25M</h3>
+              <span class="text-xs font-bold text-slate-400">@ ₦5k/unit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Funnel Chart Section -->
+          <div
+            class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-slate-100"
+          >
+            <div class="flex justify-between items-center mb-8">
+              <h3 class="text-lg font-bold text-slate-900">
+                Recovery Funnel
+                <span class="text-slate-400 font-normal ml-2"
+                  >Batch #Aug25</span
+                >
+              </h3>
+              <button
+                onclick="alert('Navigating to detailed funnel analysis...')"
+                class="text-emerald-600 text-sm font-semibold hover:underline"
+              >
+                View Details
+              </button>
+            </div>
+
+            <div class="space-y-6">
+              <!-- Funnel Item -->
+              <div class="relative">
+                <div class="flex justify-between text-sm font-medium mb-2">
+                  <span class="text-slate-700">Messaged (WhatsApp)</span>
+                  <span class="text-slate-900">5,000</span>
+                </div>
+                <div
+                  class="h-3 w-full bg-slate-100 rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-slate-800 rounded-full"
+                    style="width: 100%"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Funnel Item -->
+              <div class="relative">
+                <div class="flex justify-between text-sm font-medium mb-2">
+                  <span class="text-slate-700">Replied</span>
+                  <span class="text-slate-900">1,200 (24%)</span>
+                </div>
+                <div
+                  class="h-3 w-full bg-slate-100 rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-emerald-400 rounded-full shadow-[0_0_10px_rgba(52,211,153,0.5)]"
+                    style="width: 24%"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Funnel Item -->
+              <div class="relative">
+                <div class="flex justify-between text-sm font-medium mb-2">
+                  <span class="text-slate-700">Agreed to Return</span>
+                  <span class="text-slate-900">600 (12%)</span>
+                </div>
+                <div
+                  class="h-3 w-full bg-slate-100 rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-emerald-500 rounded-full"
+                    style="width: 12%"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Funnel Item -->
+              <div class="relative">
+                <div class="flex justify-between text-sm font-medium mb-2">
+                  <span class="text-slate-700">Verified & Paid</span>
+                  <span class="text-slate-900">450 (9%)</span>
+                </div>
+                <div
+                  class="h-3 w-full bg-slate-100 rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-emerald-600 rounded-full"
+                    style="width: 9%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Feed -->
+          <div
+            class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100"
+          >
+            <h3 class="text-lg font-bold text-slate-900 mb-6">Live Activity</h3>
+            <div
+              class="space-y-6 relative before:absolute before:inset-0 before:ml-4 before:h-full before:w-0.5 before:bg-slate-100 before:z-0"
+            >
+              <div class="relative z-10 flex gap-4">
+                <div
+                  class="w-8 h-8 rounded-full bg-emerald-100 border-2 border-white shadow-sm flex items-center justify-center shrink-0 text-emerald-600 font-bold text-xs"
+                >
+                  ₦
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-slate-900">
+                    Incentive Paid
+                  </p>
+                  <p class="text-xs text-slate-500">
+                    To: Alex Johnson (SN-4920)
+                  </p>
+                </div>
+                <span class="ml-auto text-xs text-slate-400">2m</span>
+              </div>
+
+              <div class="relative z-10 flex gap-4">
+                <div
+                  class="w-8 h-8 rounded-full bg-blue-100 border-2 border-white shadow-sm flex items-center justify-center shrink-0 text-blue-600 font-bold text-xs"
+                >
+                  💬
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-slate-900">New Reply</p>
+                  <p class="text-xs text-slate-500">"I'll drop it off today"</p>
+                </div>
+                <span class="ml-auto text-xs text-slate-400">15m</span>
+              </div>
+
+              <div class="relative z-10 flex gap-4">
+                <div
+                  class="w-8 h-8 rounded-full bg-orange-100 border-2 border-white shadow-sm flex items-center justify-center shrink-0 text-orange-600 font-bold text-xs"
+                >
+                  ⚠️
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-slate-900">
+                    Autodial Triggered
+                  </p>
+                  <p class="text-xs text-slate-500">Batch: No-Reply-8-Days</p>
+                </div>
+                <span class="ml-auto text-xs text-slate-400">1h</span>
+              </div>
+            </div>
+            <button
+              class="w-full mt-8 py-2 text-sm text-slate-500 border border-slate-200 rounded-lg hover:bg-slate-50 transition"
+            >
+              View All Activity
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- JavaScript Functionality -->
+    <script>
+      // Download Report Functionality
+      document
+        .getElementById("downloadBtn")
+        .addEventListener("click", function () {
+          const btn = this;
+          const originalText = btn.innerText;
+
+          // Visual feedback
+          btn.innerText = "Generating CSV...";
+          btn.classList.add("opacity-75", "cursor-not-allowed");
+
+          setTimeout(() => {
+            // Create a dummy CSV file
+            const csvContent =
+              "data:text/csv;charset=utf-8,ID,Metric,Value\n1,Reach,75%\n2,Response,30%\n3,Recovered,450";
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "LOLA_Recovery_Report.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Reset button
+            btn.innerText = "Downloaded!";
+            setTimeout(() => {
+              btn.innerText = originalText;
+              btn.classList.remove("opacity-75", "cursor-not-allowed");
+            }, 2000);
+          }, 1000);
+        });
+    </script>
+  </body>
+</html>
